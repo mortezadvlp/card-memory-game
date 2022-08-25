@@ -1,22 +1,28 @@
 
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedCard } from "../../app/CardSlice";
 import "./FlipCard.css"
 
-export default function FlipCard({ cardId = "back.png", hideBack = false, trueCard = false, canClick = true, resetMode = false, onClick }) {
+export default function FlipCard({ cardId = "back.png", trueCard = false, resetMode = false }) {
 
     const [flipCardClickClass, setFlipCardClickClass] = useState("");
     const [congrats, setCongrats] = useState(false);
     const [clickedOnce, setClickedOnce] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const waitFlipping = useSelector(state => state.cards.waitFlipping);
+
     const frontCard = require("../../images/front.png");
     const backCard = require("../../images/" + cardId);
 
     useEffect(() => {
-        if(hideBack & !trueCard) {
+        if(!waitFlipping && !trueCard) {
             setFlipCardClickClass("");
             setClickedOnce(false);
         }
-    }, [hideBack])
+    }, [waitFlipping, trueCard])
 
     useEffect(() => {
         if(trueCard) {
@@ -33,10 +39,10 @@ export default function FlipCard({ cardId = "back.png", hideBack = false, trueCa
     }, [resetMode])
 
     const flipCardClicked = () => {
-        if(!trueCard && canClick && !clickedOnce) {
+        if(!trueCard && !waitFlipping && !clickedOnce) {
             setFlipCardClickClass("flip-card-click");
             setClickedOnce(true);
-            onClick(cardId);
+            dispatch(setSelectedCard(cardId))
         }
     }
 

@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { diceCards, setTrueCard } from './app/CardSlice';
+import { diceCards, setSelectedCard, setTrueCard, stopWaitingFlipping } from './app/CardSlice';
 import FlipCard from './components/FlipCard/FlipCard';
 
 function App() {
 
-  const [wrongCard, setWrongCard] = useState(false);
-  const [selectedCard, setSelectedCard] = useState("");
-  const [canClick, setCanClick] = useState(true);
   const [resetGame, setResetGame] = useState(true);
   const [finish, setFinish] = useState(false);
   const cards = useSelector(state => state.cards.cards)
   const trueCards = useSelector(state => state.cards.trueCards)
+  const waitFlipping = useSelector(state => state.cards.waitFlipping);
 
   const dispatch = useDispatch();
 
@@ -29,33 +27,20 @@ function App() {
     if(trueCards.length > 0 && trueCards.length >= cards.length / 2) {
       setTimeout(() => {
         setFinish(true);
-      }, 1500);
+      }, 1200);
     }
   }, [trueCards])
 
-  const cardClicked = (cardId) => {
-    if(selectedCard !== "" && cardId === selectedCard) {
-      setSelectedCard("");
-      dispatch(setTrueCard(cardId));
-    }
-    else if(selectedCard === "") {
-      setSelectedCard(cardId);
-    }
-    else {
-      setSelectedCard("");
-      setCanClick(false);
-      setWrongCard(false);
+  useEffect(() => {
+    if(waitFlipping) {
       setTimeout(() => {
-        setWrongCard(true)
-        setCanClick(true);
-      }, 1000);
+        dispatch(stopWaitingFlipping());
+      }, 700);
     }
-  }
+  }, [waitFlipping]);
 
-  const onButtonClicked = () => {
-    setWrongCard(true);
-    setSelectedCard("");
-    setCanClick(true);
+  const onResetButtonClicked = () => {
+    dispatch(setSelectedCard(null));
     setFinish(false);
     setResetGame(true);
   }
@@ -63,15 +48,14 @@ function App() {
   return (
     <div className='main-container main-div' >
       <div className='control-panel' >
-        <button type='button' className='resetButton' onClick={onButtonClicked} >
+        <button type='button' className='resetButton' onClick={onResetButtonClicked} >
           <span >Reset Game</span>
           <img src={require("./images/reset.png")} alt='reset' />
         </button>
       </div>
       <div className="holder">
         {cards.map((card, index) => 
-          <FlipCard key={index} cardId={card} hideBack={wrongCard} trueCard={trueCards.indexOf(card) > -1}
-            canClick={canClick} resetMode={resetGame} onClick={cardClicked} />
+          <FlipCard key={index} cardId={card} trueCard={trueCards.indexOf(card) > -1} resetMode={resetGame} />
         )}
         {finish && 
         <div className='congrats-holder' >
