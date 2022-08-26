@@ -8,6 +8,10 @@ Redux-Toolkit is used as state management.
 
 No additional library is used in this project.
 
+## Live Demo
+
+[https://simacoders.ir/work-samples/card-memory-game/](https://simacoders.ir/work-samples/card-memory-game/)
+
 
 ## `Github Address`
 
