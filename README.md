@@ -1,9 +1,13 @@
 # Card Memory Game
 
 In this project, a card memory game is presented as "Work Sample".
+
 Html, Css and JavaScript are used in React.js library to form this project.
+
 Redux-Toolkit is used as state management.
+
 No additional library is used in this project.
+
 
 ## `Github Address`
 
