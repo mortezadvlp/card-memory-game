@@ -6,6 +6,9 @@ body {
 .main-container {
   margin-left: auto;
   margin-right: auto;
+  margin-top: 2rem;
+  border: 25px solid #B88846;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23B88846' stroke-width='2'%3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath d='M8 8h16v16H8zM51 8h16v16H51zM51 51h16v16H51zM8 51h16v16H8z'/%3E%3C/g%3E%3Cg fill='%23B88846'%3E%3Ccircle cx='16' cy='16' r='2'/%3E%3Ccircle cx='59' cy='16' r='2'/%3E%3Ccircle cx='59' cy='59' r='2'/%3E%3Ccircle cx='16' cy='59' r='2'/%3E%3C/g%3E%3C/svg%3E") 25;
 }
 
 .holder {
@@ -17,9 +20,6 @@ body {
   column-gap: 0.75rem;
   row-gap: 0.2rem;
   justify-items: center;
-  /*flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;*/
   padding: 0.5rem;
   position: relative;
 }
@@ -28,22 +28,22 @@ body {
     grid-template-columns: repeat(6, 150px);
   }
 }
-@media (max-width: 992px) {
+@media (max-width: 1080px) {
   .holder {
     grid-template-columns: repeat(5, 150px);
   }
 }
-@media (max-width: 835px) {
+@media (max-width: 925px) {
   .holder {
     grid-template-columns: repeat(4, 150px);
   }
 }
-@media (max-width: 675px) {
+@media (max-width: 750px) {
   .holder {
     grid-template-columns: repeat(3, 150px);
   }
 }
-@media (max-width: 518px) {
+@media (max-width: 560px) {
   .holder {
     grid-template-columns: repeat(2, 150px);
   }
@@ -53,8 +53,6 @@ body {
   width: 200px;
   height: 50px;
   margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
   background-color: coral;
   border: 1px solid chocolate;
   border-radius: 10px;
@@ -81,13 +79,35 @@ body {
 .control-panel {
   width: 100%;
   padding: 1rem 0rem;
-  text-align: center;
-  border-bottom: 1px solid chocolate;
+  border-bottom: 7px double #B88846;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+}
+
+.info-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+@media (min-width: 900px) {
+  .info-panel {
+    width: 60%;
+  }
 }
 
 .bring-center {
   margin-left: auto;
   margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .main-div {
@@ -160,4 +180,12 @@ body {
 .congrats-text {
   font-weight: bold;
   font-size: xx-large;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.5rem;
 }
